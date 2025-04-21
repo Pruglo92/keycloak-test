@@ -8,7 +8,11 @@ Authorization Code Flow)**.
 
 ```bash
 git clone git@github.com:Pruglo92/keycloak-test.git
+```
+```bash
 cd keycloak-test
+```
+```bash
 docker-compose up
 ```
 
