@@ -19,6 +19,9 @@ Swagger доступен по адресу:
 
 Для авторизации нажмите кнопку **Authorize** и выполните вход через Keycloak.
 
+username: test-user  
+password: test-password
+
 ## ⚠️ Авторизация
 
 Все запросы, кроме Swagger и OpenAPI (`/swagger-ui/**`, `/v3/api-docs/**` и пр.), требуют авторизации через Keycloak.  
