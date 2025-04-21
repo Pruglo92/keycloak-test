@@ -1,0 +1,35 @@
+version: '3.8'
+
+networks:
+  my-network:
+    driver: bridge
+
+services:
+  backend:
+    container_name: backend
+    networks:
+      - my-network
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      VERIFY_JWT_TOKEN_URI: http://keycloak:8080/realms/test-realm/protocol/openid-connect/certs
+    depends_on:
+      - keycloak
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0.5
+    container_name: keycloak
+    command: start-dev --import-realm
+    networks:
+      - my-network
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KC_HTTP_PORT: 8080
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./test-realm.json:/opt/keycloak/data/import/test-realm.json
