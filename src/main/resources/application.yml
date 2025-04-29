@@ -14,6 +14,7 @@ spring:
           swagger-ui:
             provider: keycloak
             client-id: ${KEYCLOAK_SWAGGER_CLIENT_ID:swagger-ui}
+            client-name: Swagger-ui
             client-secret: ${KEYCLOAK_SWAGGER_CLIENT_SECRET:swagger-secret}
             authorization-grant-type: authorization_code
             redirect-uri: "{baseUrl}/swagger-ui/oauth2-redirect.html"
