@@ -8,7 +8,11 @@ Authorization Code Flow)**.
 
 ```bash
 git clone git@github.com:Pruglo92/keycloak-test.git
+```
+```bash
 cd keycloak-test
+```
+```bash
 docker-compose up
 ```
 
@@ -19,8 +23,14 @@ Swagger доступен по адресу:
 
 Для авторизации нажмите кнопку **Authorize** и выполните вход через Keycloak.
 
-username: test-user  
-password: test-password
+username: 
+```credentials
+test-user
+```
+password:
+```credentials
+test-password
+```
 
 ## ⚠️ Авторизация
 

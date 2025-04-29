@@ -5,6 +5,20 @@ networks:
     driver: bridge
 
 services:
+  init-keycloak-config:
+    image: alpine
+    container_name: init-keycloak-config
+    entrypoint: /bin/sh /scripts/prepare-keycloak-config.sh
+    volumes:
+      - ./test-realm.json:/input/test-realm.json:ro
+      - ./scripts:/scripts:ro
+      - keycloak-config:/output
+    environment:
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+    networks:
+      - my-network
+
   backend:
     container_name: backend
     networks:
@@ -23,7 +37,7 @@ services:
   keycloak:
     image: quay.io/keycloak/keycloak:26.0.5
     container_name: keycloak
-    command: start-dev --import-realm
+    command: start-dev --import-realm --verbose
     networks:
       - my-network
     environment:
@@ -37,7 +51,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./test-realm.json:/opt/keycloak/data/import/test-realm.json
+      - keycloak-config:/opt/keycloak/data/import
     depends_on:
       postgres:
         condition: service_healthy
@@ -65,3 +79,6 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+
+volumes:
+  keycloak-config:
